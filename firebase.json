@@ -29,7 +29,9 @@
 				}
 			],
 			"target": "fire-chat",
-			"frameworksBackend": {}
+			"frameworksBackend": {
+				"region": "europe-west1"
+			}
 		}
 	]
 }
