@@ -1,9 +1,20 @@
 <router-outlet></router-outlet>
 
 @for (entry of entries; track entry.id) {
-<p>{{ entry.message }}</p>
+<p>{{ entry.name }}: {{ entry.message }}</p>
 }
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-	<input formControlName="message" />
+	<mat-form-field class="message-input-field" appearance="outline">
+		<mat-label>Type your message...</mat-label>
+		<input matInput formControlName="message" />
+		<mat-icon
+			matRipple
+			matSuffix
+			(click)="onSubmit()"
+			class="material-symbols-outlined"
+		>
+			send
+		</mat-icon>
+	</mat-form-field>
 </form>

@@ -1,0 +1,9 @@
+:host.app-component {
+	display: block;
+	margin: 12px;
+	width: 500px;
+
+	.message-input-field {
+		width: 100%;
+	}
+}
