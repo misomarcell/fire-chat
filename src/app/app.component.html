@@ -1,0 +1,9 @@
+<router-outlet></router-outlet>
+
+@for (entry of entries; track entry.id) {
+<p>{{ entry.message }}</p>
+}
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+	<input formControlName="message" />
+</form>

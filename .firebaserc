@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "marcell-fire-chat"
+  },
+  "targets": {
+    "marcell-fire-chat": {
+      "hosting": {
+        "fire-chat": [
+          "marcell-fire-chat"
+        ]
+      }
+    }
+  }
+}
