@@ -29,7 +29,6 @@
 				}
 			],
 			"target": "fire-chat",
-			"source": ".",
 			"frameworksBackend": {}
 		}
 	]
