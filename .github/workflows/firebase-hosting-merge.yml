@@ -18,5 +18,5 @@ jobs:
                   firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_MARCELL_FIRE_CHAT }}"
                   channelId: live
                   projectId: marcell-fire-chat
-			  env:
-					FIREBASE_CLI_EXPERIMENTS: webframeworks
+              env:
+                  FIREBASE_CLI_EXPERIMENTS: webframeworks
