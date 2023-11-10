@@ -2,7 +2,6 @@ import { CommonModule } from "@angular/common";
 import { Component, HostBinding, inject } from "@angular/core";
 import {
 	Database,
-	get,
 	onChildAdded,
 	push,
 	query,
