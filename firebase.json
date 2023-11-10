@@ -18,11 +18,14 @@
 			]
 		}
 	],
-	"hosting": {
-		"source": ".",
-		"target": "fire-chat",
-		"frameworksBackend": {
-			"region": "europe-west1"
+	"hosting": [
+		{
+			"target": "fire-chat",
+			"source": ".",
+			"frameworksBackend": {
+				"region": "europe-west1",
+				"maxInstances": 1
+			}
 		}
-	}
+	]
 }

@@ -15,12 +15,11 @@ import {
 	ReactiveFormsModule,
 	Validators,
 } from "@angular/forms";
-import { RouterOutlet } from "@angular/router";
-import { MatInputModule } from "@angular/material/input";
+import { MatRippleModule } from "@angular/material/core";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
-import { ViewEncapsulation } from "@angular/compiler";
-import { MatRippleModule } from "@angular/material/core";
+import { MatInputModule } from "@angular/material/input";
+import { RouterOutlet } from "@angular/router";
 
 interface Message {
 	id: string;
@@ -59,13 +58,6 @@ export class AppComponent {
 
 	async ngOnInit() {
 		const q = query(this.messagesRef);
-		const messages = await get(q);
-
-		const fetchedMessages = messages.val();
-		for (let i in fetchedMessages) {
-			this.entries.push(fetchedMessages[i]);
-		}
-
 		onChildAdded(q, (snapshot) => {
 			this.entries.push(snapshot.val());
 		});
