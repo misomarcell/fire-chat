@@ -1,15 +1,33 @@
 <mat-drawer-container autosize class="drawer-container">
 	<mat-drawer #drawer [opened]="true" mode="side" class="sidenav">
-		<p>1</p>
-		<p>2</p>
-		<p>3</p>
+		<menu>
+			<ul>
+				<li>
+					<a matRipple> Menu item ... </a>
+				</li>
+				<li>
+					<a matRipple>Menu item ...</a>
+				</li>
+				<li>
+					<a matRipple>Menu item ...</a>
+				</li>
+			</ul>
+		</menu>
 	</mat-drawer>
 	<div class="sidenav-content">
 		<router-outlet></router-outlet>
 
 		<div class="messages-container">
 			@for (entry of entries; track entry.id) {
-			<p>{{ entry.name }}: {{ entry.message }}</p>
+			<p class="message-entry">
+				<span class="timestamp">
+					{{ entry.timestamp | date : "HH:mm" }}
+				</span>
+				<b [ngStyle]="{ color: stringHashToColor(entry.name) }">
+					{{ entry.name }}:
+				</b>
+				{{ entry.message }}
+			</p>
 			}
 		</div>
 

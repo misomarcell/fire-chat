@@ -6,6 +6,7 @@ import {
 	push,
 	query,
 	ref,
+	serverTimestamp,
 } from "@angular/fire/database";
 import {
 	FormControl,
@@ -20,8 +21,15 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { RouterOutlet } from "@angular/router";
 
+interface MessageToSend {
+	timestamp: object;
+	message: string;
+	name: string;
+}
+
 interface Message {
 	id: string;
+	timestamp: number;
 	message: string;
 	name: string;
 }
@@ -64,14 +72,27 @@ export class AppComponent {
 	}
 
 	async onSubmit() {
-		if (this.form.invalid) return;
+		if (!this.form.value.message) return;
 
-		const newMessage = {
+		const newMessage: MessageToSend = {
+			timestamp: serverTimestamp(),
 			message: this.form.value.message,
 			name: this.getName(),
-		} as Message;
+		};
+
 		await push(this.messagesRef, newMessage);
 		this.form.reset();
+	}
+
+	stringHashToColor(str: string): string {
+		let hash = 0;
+		for (let i = 0; i < str.length; i++) {
+			hash = str.charCodeAt(i) + ((hash << 5) - hash);
+		}
+
+		const c = (hash & 0x00ffffff).toString(16).toUpperCase();
+
+		return "#" + "00000".substring(0, 6 - c.length) + c;
 	}
 
 	private getName(): string {
