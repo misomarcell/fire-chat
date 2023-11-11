@@ -12,12 +12,12 @@ import {
 	FormGroup,
 	FormsModule,
 	ReactiveFormsModule,
-	Validators,
 } from "@angular/forms";
 import { MatRippleModule } from "@angular/material/core";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { MatSidenavModule } from "@angular/material/sidenav";
 import { RouterOutlet } from "@angular/router";
 
 interface Message {
@@ -34,6 +34,7 @@ interface Message {
 		FormsModule,
 		ReactiveFormsModule,
 		RouterOutlet,
+		MatSidenavModule,
 		MatInputModule,
 		MatFormFieldModule,
 		MatIconModule,
@@ -47,10 +48,10 @@ export class AppComponent {
 	database: Database = inject(Database);
 
 	form: FormGroup = new FormGroup({
-		message: new FormControl("", Validators.required),
+		message: new FormControl(""),
 	});
 
-	private messagesRef = ref(this.database, `messages`);
+	private messagesRef = ref(this.database, "messages");
 
 	@HostBinding("class.app-component") hostClass = true;
 	constructor() {}
@@ -58,7 +59,7 @@ export class AppComponent {
 	async ngOnInit() {
 		const q = query(this.messagesRef);
 		onChildAdded(q, (snapshot) => {
-			this.entries.push(snapshot.val());
+			this.entries.unshift(snapshot.val());
 		});
 	}
 

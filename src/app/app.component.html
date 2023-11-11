@@ -1,20 +1,31 @@
-<router-outlet></router-outlet>
+<mat-drawer-container autosize class="drawer-container">
+	<mat-drawer #drawer [opened]="true" mode="side" class="sidenav">
+		<p>1</p>
+		<p>2</p>
+		<p>3</p>
+	</mat-drawer>
+	<div class="sidenav-content">
+		<router-outlet></router-outlet>
 
-@for (entry of entries; track entry.id) {
-<p>{{ entry.name }}: {{ entry.message }}</p>
-}
+		<div class="messages-container">
+			@for (entry of entries; track entry.id) {
+			<p>{{ entry.name }}: {{ entry.message }}</p>
+			}
+		</div>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-	<mat-form-field class="message-input-field" appearance="outline">
-		<mat-label>Type your message...</mat-label>
-		<input matInput formControlName="message" />
-		<mat-icon
-			matRipple
-			matSuffix
-			(click)="onSubmit()"
-			class="material-symbols-outlined"
-		>
-			send
-		</mat-icon>
-	</mat-form-field>
-</form>
+		<form [formGroup]="form" (ngSubmit)="onSubmit()">
+			<mat-form-field class="message-input-field" appearance="outline">
+				<mat-label>Type your message...</mat-label>
+				<input matInput formControlName="message" />
+				<mat-icon
+					matRipple
+					matSuffix
+					(click)="onSubmit()"
+					class="material-symbols-outlined"
+				>
+					send
+				</mat-icon>
+			</mat-form-field>
+		</form>
+	</div>
+</mat-drawer-container>

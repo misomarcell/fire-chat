@@ -1,9 +1,33 @@
 :host.app-component {
-	display: block;
-	margin: 12px;
-	width: 500px;
+	display: flex;
+	height: 100%;
+
+	.sidenav-content {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		padding: 0 20px;
+		max-height: 100%;
+	}
+
+	.messages-container {
+		display: flex;
+		flex-direction: column-reverse;
+		overflow: auto;
+		flex: 1;
+	}
 
 	.message-input-field {
 		width: 100%;
+	}
+
+	.drawer-container {
+		height: 100%;
+		width: 100%;
+	}
+
+	.sidenav {
+		padding: 20px;
+		width: 25%;
 	}
 }
