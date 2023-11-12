@@ -6,10 +6,10 @@ import { getDatabase, provideDatabase } from "@angular/fire/database";
 import { getFunctions, provideFunctions } from "@angular/fire/functions";
 import { getPerformance, providePerformance } from "@angular/fire/performance";
 import { provideClientHydration } from "@angular/platform-browser";
+import { provideAnimations } from "@angular/platform-browser/animations";
 import { provideRouter } from "@angular/router";
 
 import { routes } from "./app.routes";
-import { provideAnimations } from "@angular/platform-browser/animations";
 
 export const appConfig: ApplicationConfig = {
 	providers: [

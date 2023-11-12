@@ -10,7 +10,16 @@ import {
 	ViewChild,
 } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { Database, DatabaseReference, onChildAdded, push, query, ref, serverTimestamp } from "@angular/fire/database";
+import {
+	Database,
+	DatabaseReference,
+	limitToLast,
+	onChildAdded,
+	push,
+	query,
+	ref,
+	serverTimestamp,
+} from "@angular/fire/database";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatRippleModule } from "@angular/material/core";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -70,7 +79,7 @@ export class MessageBoardComponent {
 
 		this.changeDetector.markForCheck();
 
-		const messagesQuery = query(this.messagesRef);
+		const messagesQuery = query(this.messagesRef, limitToLast(100));
 		this.unsubscribeFromMessages = onChildAdded(messagesQuery, (snapshot) => {
 			this.addMessage(snapshot.val());
 		});

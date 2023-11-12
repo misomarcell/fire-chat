@@ -1,6 +1,6 @@
 import { DestroyRef, inject, Injectable } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { Database, ref, set } from "@angular/fire/database";
+import { Database, get, ref, serverTimestamp, set } from "@angular/fire/database";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { switchMap, tap } from "rxjs";
@@ -30,7 +30,9 @@ export class RoomService {
 	}
 
 	async crateNewRoom(chatRoom: CreateChatRoom): Promise<void> {
-		const chatsRef = ref(this.database, `chats/${chatRoom.id}`);
-		await set(chatsRef, chatRoom);
+		const roomRef = ref(this.database, `chats/${chatRoom.id}`);
+
+		await get(roomRef).then((snapshot) => snapshot.exists() && Promise.reject("Room already exists"));
+		await set(roomRef, { ...chatRoom, timestamp: serverTimestamp() });
 	}
 }
