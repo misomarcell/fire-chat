@@ -1,0 +1,9 @@
+@if (message) {
+<span class="timestamp">
+	{{ message.timestamp | date : "HH:mm" }}
+</span>
+<b [ngStyle]="{ color: stringHashToColor(message.name) }">
+	{{ message.name }}:
+</b>
+{{ message.message }}
+}

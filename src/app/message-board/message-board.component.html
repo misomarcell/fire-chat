@@ -1,0 +1,13 @@
+<div class="messages-container">
+	@for (message of messages; track message.id) {
+	<app-message [message]="message"></app-message>
+	}
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+	<mat-form-field class="message-input-field" appearance="outline">
+		<mat-label>Type your message...</mat-label>
+		<input matInput #messageInput formControlName="message" />
+		<mat-icon matRipple matSuffix (click)="onSubmit()" class="material-symbols-outlined"> send </mat-icon>
+	</mat-form-field>
+</form>

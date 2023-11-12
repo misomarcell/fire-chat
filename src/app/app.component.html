@@ -1,49 +1,8 @@
 <mat-drawer-container autosize class="drawer-container">
 	<mat-drawer #drawer [opened]="true" mode="side" class="sidenav">
-		<menu>
-			<ul>
-				<li>
-					<a matRipple> Menu item ... </a>
-				</li>
-				<li>
-					<a matRipple>Menu item ...</a>
-				</li>
-				<li>
-					<a matRipple>Menu item ...</a>
-				</li>
-			</ul>
-		</menu>
+		<app-menu />
 	</mat-drawer>
 	<div class="sidenav-content">
-		<router-outlet></router-outlet>
-
-		<div class="messages-container">
-			@for (entry of entries; track entry.id) {
-			<p class="message-entry">
-				<span class="timestamp">
-					{{ entry.timestamp | date : "HH:mm" }}
-				</span>
-				<b [ngStyle]="{ color: stringHashToColor(entry.name) }">
-					{{ entry.name }}:
-				</b>
-				{{ entry.message }}
-			</p>
-			}
-		</div>
-
-		<form [formGroup]="form" (ngSubmit)="onSubmit()">
-			<mat-form-field class="message-input-field" appearance="outline">
-				<mat-label>Type your message...</mat-label>
-				<input matInput formControlName="message" />
-				<mat-icon
-					matRipple
-					matSuffix
-					(click)="onSubmit()"
-					class="material-symbols-outlined"
-				>
-					send
-				</mat-icon>
-			</mat-form-field>
-		</form>
+		<router-outlet />
 	</div>
 </mat-drawer-container>

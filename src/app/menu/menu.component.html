@@ -1,0 +1,18 @@
+<div class="buttons-container">
+	<button mat-stroked-button (click)="onCreateNewRoomClick()" color="primary">
+		<mat-icon class="material-icons-outlined">add</mat-icon>
+		New room
+	</button>
+</div>
+
+<div class="latest-rooms">
+	<h3>Latest rooms</h3>
+
+	<ul>
+		@for (room of chatRooms; track room.id) {
+		<li [routerLink]="['/chat', room.id]" routerLinkActive="active">
+			<a matRipple> {{ room.id }} </a>
+		</li>
+		}
+	</ul>
+</div>

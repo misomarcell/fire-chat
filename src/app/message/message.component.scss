@@ -1,0 +1,15 @@
+:host.app-message {
+	padding: 4px 6px;
+	display: flex;
+	gap: 10px;
+
+	&:nth-of-type(odd) {
+		background-color: #eee;
+	}
+
+	.timestamp {
+		font-size: 0.7em;
+		color: #999;
+		max-width: 50px;
+	}
+}

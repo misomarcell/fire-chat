@@ -1,0 +1,10 @@
+:host.new-room-form {
+	display: block;
+	padding: 20px;
+
+	.create-room-form {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+}

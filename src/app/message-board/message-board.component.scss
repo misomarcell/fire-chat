@@ -1,0 +1,18 @@
+:host.app-message-board {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 12px;
+
+	.messages-container {
+		display: flex;
+		flex-direction: column-reverse;
+		overflow: auto;
+		flex: 1;
+	}
+
+	.message-input-field {
+		width: 100%;
+	}
+}

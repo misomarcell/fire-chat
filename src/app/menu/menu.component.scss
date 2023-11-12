@@ -1,0 +1,44 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	.buttons-container {
+		display: flex;
+		padding: 0 16px;
+
+		button {
+			width: 100%;
+		}
+	}
+
+	.latest-rooms {
+		h3 {
+			margin: 0;
+			margin-left: 16px;
+			font-weight: 500;
+		}
+
+		ul {
+			padding: 0;
+
+			li {
+				list-style: none;
+				padding: 10px 16px;
+				cursor: pointer;
+
+				&.active {
+					background-color: #f5f5f5;
+				}
+
+				&:hover {
+					background-color: #f5f5f5;
+				}
+
+				&::before {
+					content: "#";
+				}
+			}
+		}
+	}
+}
