@@ -92,7 +92,7 @@ export class MessageBoardComponent {
 
 	private addMessage(message: Message): void {
 		this.messages.unshift(message);
-		this.changeDetector.detectChanges();
+		this.changeDetector.markForCheck();
 	}
 
 	private getName(): string {

@@ -5,13 +5,31 @@
 	</button>
 </div>
 
+<li matRipple class="menu-item" [routerLink]="['/home']" routerLinkActive="active">
+	<mat-icon matPrefix class="material-icons-outlined">home</mat-icon>
+
+	Home
+</li>
+
 <div class="latest-rooms">
 	<h3>Latest rooms</h3>
 
 	<ul>
 		@for (room of chatRooms; track room.id) {
-		<li [routerLink]="['/chat', room.id]" routerLinkActive="active">
-			<a matRipple> {{ room.id }} </a>
+		<li
+			matRipple
+			class="menu-item"
+			[ngClass]="{ private: room.isPrivate }"
+			[routerLink]="['/chat', room.id]"
+			routerLinkActive="active"
+		>
+			@if (room.isPrivate) {
+			<mat-icon matPrefix class="material-icons-outlined">lock</mat-icon>
+			} @else {
+			<mat-icon matPrefix class="material-icons-outlined">lock_open</mat-icon>
+			}
+
+			{{ room.id }}
 		</li>
 		}
 	</ul>

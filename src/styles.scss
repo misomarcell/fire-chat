@@ -1,6 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
-
+@use "@angular/material" as mat;
 @import "material-variables";
+
+$custom-typography: mat.define-typography-config(
+	$font-family: "Nunito",
+	$body-1: mat.define-typography-level(18px, 1, 500),
+	$body-2: mat.define-typography-level(14px, 1, 500),
+	$button: mat.define-typography-level(14px, 1.25, bold),
+);
+
+@include mat.all-component-typographies($custom-typography);
 
 html,
 body {
@@ -9,5 +17,4 @@ body {
 
 body {
 	margin: 0;
-	font-family: Roboto, "Helvetica Neue", sans-serif;
 }
