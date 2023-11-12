@@ -4,8 +4,15 @@
 
 	.sidenav-content {
 		display: flex;
-		padding: 0 20px;
+		flex-direction: column;
 		height: 100%;
+
+		.routed-component {
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			padding: 0 20px;
+		}
 	}
 
 	.drawer-container {
@@ -17,5 +24,15 @@
 		display: flex;
 		padding: 20px 0;
 		width: 250px;
+	}
+
+	.toolbar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex: 0;
+		background-color: #ccc;
+		padding: 8px 12px;
+		height: 50px;
 	}
 }
