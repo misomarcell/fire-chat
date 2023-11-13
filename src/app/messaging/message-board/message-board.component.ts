@@ -9,7 +9,7 @@ import {
 	ViewChild,
 } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatRippleModule } from "@angular/material/core";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
@@ -41,7 +41,7 @@ import { MessagingService } from "../messaging.service";
 export class MessageBoardComponent {
 	messages: Message[] = [];
 	form: FormGroup = new FormGroup({
-		message: new FormControl(""),
+		message: new FormControl("", [Validators.minLength(1), Validators.maxLength(2500)]),
 	});
 
 	@ViewChild("messageInput") messageInput: ElementRef<HTMLInputElement> | undefined;

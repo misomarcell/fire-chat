@@ -25,7 +25,12 @@ import { Subscription } from "rxjs";
 })
 export class NewRoomFormComponent {
 	formGroup = new FormGroup({
-		id: new FormControl("", [Validators.required, Validators.pattern(/^[a-z0-9-]+$/)]),
+		id: new FormControl("", [
+			Validators.required,
+			Validators.minLength(5),
+			Validators.maxLength(32),
+			Validators.pattern(/^[a-z0-9-]+$/),
+		]),
 		isPrivate: new FormControl(false),
 		roomPassword: new FormControl(""),
 	});
