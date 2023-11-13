@@ -1,21 +1,11 @@
 <mat-drawer-container autosize class="drawer-container">
 	<mat-drawer #drawer [position]="'end'" [mode]="isHandset ? 'over' : 'side'" class="sidenav">
-		<app-menu (click)="drawer.close()" />
+		<app-menu (click)="isHandset && drawer.close()" />
 	</mat-drawer>
 	<div class="sidenav-content">
 		<div class="routed-component">
 			<router-outlet />
 		</div>
-		<div class="toolbar">
-			<button mat-icon-button>
-				<mat-icon class="material-icons-outlined">info</mat-icon>
-			</button>
-			<button mat-icon-button>
-				<mat-icon class="material-icons-outlined">person</mat-icon>
-			</button>
-			<button mat-icon-button (click)="drawer.toggle()">
-				<mat-icon class="material-icons-outlined">menu</mat-icon>
-			</button>
-		</div>
+		<app-bottom-toolbar (toggleSideNav)="drawer.toggle()" />
 	</div>
 </mat-drawer-container>
