@@ -12,6 +12,7 @@ export const routes: Routes = [
 	},
 	{
 		path: "chat/:id",
-		loadComponent: () => import("./message-board/message-board.component").then((m) => m.MessageBoardComponent),
+		loadComponent: () =>
+			import("./messaging/message-board/message-board.component").then((m) => m.MessageBoardComponent),
 	},
 ];

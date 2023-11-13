@@ -1,20 +1,43 @@
-import { DestroyRef, inject, Injectable } from "@angular/core";
+import { DestroyRef, Injectable } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { Database, get, ref, serverTimestamp, set } from "@angular/fire/database";
+import {
+	Database,
+	get,
+	limitToLast,
+	onChildAdded,
+	orderByChild,
+	query,
+	ref,
+	serverTimestamp,
+	set,
+} from "@angular/fire/database";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
-import { switchMap, tap } from "rxjs";
+import { Subject, switchMap, tap } from "rxjs";
 
-import { CreateChatRoom } from "../models/ChatRoom.model";
+import { ChatRoom, CreateChatRoom } from "../models/ChatRoom.model";
 import { NewRoomFormComponent } from "./new-room-form/new-room-form.component";
 
 @Injectable({
 	providedIn: "root",
 })
 export class RoomService {
-	private destriyRef = inject(DestroyRef);
+	onRoomChange$ = new Subject<ChatRoom>();
 
-	constructor(private database: Database, private router: Router, private dialog: MatDialog) {}
+	private chatsRef = ref(this.database, "chats");
+
+	constructor(
+		private database: Database,
+		private destroyRef: DestroyRef,
+		private router: Router,
+		private dialog: MatDialog
+	) {
+		const chatRoomsQuery = query(this.chatsRef, limitToLast(25), orderByChild("timestamp"));
+		onChildAdded(chatRoomsQuery, (snapshot) => {
+			console.warn("Room changed", snapshot.val());
+			this.onRoomChange$.next(snapshot.val());
+		});
+	}
 
 	openRoomCreateDialog() {
 		const dialogInstance = this.dialog.open(NewRoomFormComponent, { width: "500px" });
@@ -22,7 +45,7 @@ export class RoomService {
 		dialogInstance
 			.afterClosed()
 			.pipe(
-				takeUntilDestroyed(this.destriyRef),
+				takeUntilDestroyed(this.destroyRef),
 				switchMap((chatRoom: CreateChatRoom) => this.crateNewRoom(chatRoom).then(() => chatRoom)),
 				tap((chatRoom: CreateChatRoom) => this.router.navigate(["/chat", chatRoom.id]))
 			)

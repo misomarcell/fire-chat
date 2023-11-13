@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Message } from "../models/Message.model";
+import { Message } from "../../models/Message.model";
 
 @Component({
 	selector: "app-message",

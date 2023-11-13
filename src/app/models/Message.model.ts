@@ -1,3 +1,8 @@
+export interface MessageBase {
+	message: string;
+	name: string;
+}
+
 export interface MessageToSend {
 	timestamp: object;
 	message: string;

@@ -1,9 +1,10 @@
 import { CommonModule } from "@angular/common";
-import { ChangeDetectorRef, Component, inject } from "@angular/core";
-import { Database, limitToLast, onChildAdded, orderByChild, query, ref } from "@angular/fire/database";
+import { ChangeDetectorRef, Component, DestroyRef } from "@angular/core";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
+import { tap } from "rxjs";
 
 import { ChatRoom } from "../models/ChatRoom.model";
 import { RoomService } from "../rooms/room.service";
@@ -18,18 +19,20 @@ import { RoomService } from "../rooms/room.service";
 export class MenuComponent {
 	chatRooms: ChatRoom[] = [];
 
-	private database: Database = inject(Database);
-	private chatsRef = ref(this.database, "chats");
-
-	constructor(private roomService: RoomService, private changeDetectorRef: ChangeDetectorRef) {}
-
-	ngOnInit(): void {
-		const chatRoomsQuery = query(this.chatsRef, limitToLast(25), orderByChild("timestamp"));
-		onChildAdded(chatRoomsQuery, (snapshot) => {
-			const chatRoom = snapshot.val();
-			this.chatRooms.unshift(chatRoom);
-			this.changeDetectorRef.detectChanges();
-		});
+	constructor(
+		private roomService: RoomService,
+		private destroyRef: DestroyRef,
+		private changeDetectorRef: ChangeDetectorRef
+	) {
+		this.roomService.onRoomChange$
+			.pipe(
+				takeUntilDestroyed(this.destroyRef),
+				tap((chatRoom) => {
+					this.chatRooms.unshift(chatRoom);
+					this.changeDetectorRef.detectChanges();
+				})
+			)
+			.subscribe();
 	}
 
 	onCreateNewRoomClick(): void {
