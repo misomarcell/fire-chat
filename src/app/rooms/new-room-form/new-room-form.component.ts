@@ -1,11 +1,11 @@
-import { Component, HostBinding, Inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { ChangeDetectionStrategy, Component, HostBinding } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatDialogRef } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
-import { MatButtonModule } from "@angular/material/button";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import { MatDialogRef } from "@angular/material/dialog";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -19,6 +19,7 @@ import { Subscription } from "rxjs";
 		MatSlideToggleModule,
 		MatInputModule,
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: "./new-room-form.component.html",
 	styleUrl: "./new-room-form.component.scss",
 })
@@ -36,6 +37,11 @@ export class NewRoomFormComponent {
 
 	ngOnInit(): void {
 		this.formChanges = this.formGroup.valueChanges.subscribe((value) => {
+			const formattedId = value.id?.toLowerCase().replace(" ", "-");
+			if (formattedId && value.id !== formattedId) {
+				this.formGroup.get("id")?.setValue(formattedId);
+			}
+
 			if (value.isPrivate) {
 				this.formGroup.get("roomPassword")?.setValidators([Validators.required]);
 			} else {

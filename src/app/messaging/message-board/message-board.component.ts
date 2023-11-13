@@ -6,7 +6,6 @@ import {
 	DestroyRef,
 	ElementRef,
 	HostBinding,
-	inject,
 	ViewChild,
 } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
@@ -58,14 +57,13 @@ export class MessageBoardComponent {
 				takeUntilDestroyed(this.destroyRef),
 				map((params) => params["id"]),
 				filter((chatId) => !!chatId),
-				tap((chatId) => {
-					this.messageInput?.nativeElement.focus();
+				tap(() => {
 					this.messages = [];
+					this.messageInput?.nativeElement.focus();
 
-					this.messagingService.initMessages(chatId);
 					this.changeDetector.markForCheck();
 				}),
-				switchMap(() => this.messagingService.onMessage$.asObservable()),
+				switchMap((chatId) => this.messagingService.getMessages$(chatId).asObservable()),
 				tap((message) => this.displayMessage(message))
 			)
 			.subscribe();

@@ -1,11 +1,13 @@
-import { Component, HostBinding, Input } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { ChangeDetectionStrategy, Component, HostBinding, Input } from "@angular/core";
+
 import { Message } from "../../models/Message.model";
 
 @Component({
 	selector: "app-message",
 	standalone: true,
 	imports: [CommonModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: "./message.component.html",
 	styleUrl: "./message.component.scss",
 })

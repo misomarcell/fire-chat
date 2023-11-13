@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { ChangeDetectorRef, Component, DestroyRef } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
@@ -13,6 +13,7 @@ import { RoomService } from "../rooms/room.service";
 	selector: "app-menu",
 	standalone: true,
 	imports: [CommonModule, RouterModule, MatButtonModule, MatIconModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: "./menu.component.html",
 	styleUrl: "./menu.component.scss",
 })

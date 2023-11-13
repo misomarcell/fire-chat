@@ -9,29 +9,31 @@ import {
 	ref,
 	serverTimestamp,
 } from "@angular/fire/database";
+import { ReplaySubject } from "rxjs";
 
 import { Message, MessageBase, MessageToSend } from "../models/Message.model";
-import { Subject } from "rxjs";
 
 @Injectable({
 	providedIn: "root",
 })
 export class MessagingService {
-	onMessage$: Subject<Message> = new Subject();
-
 	private messagesRef: DatabaseReference | undefined;
 	private unsubscribeFromMessages = () => {};
 
 	constructor(private database: Database) {}
 
-	initMessages(chatId: string) {
+	getMessages$(chatId: string) {
+		const onMessage$ = new ReplaySubject<Message>();
+
 		this.unsubscribeFromMessages();
 		this.messagesRef = ref(this.database, `chats/${chatId}/messages`);
 
 		const messagesQuery = query(this.messagesRef, limitToLast(100));
 		this.unsubscribeFromMessages = onChildAdded(messagesQuery, (snapshot) => {
-			this.onMessage$.next(snapshot.val());
+			onMessage$?.next(snapshot.val());
 		});
+
+		return onMessage$;
 	}
 
 	async sendMessage(message: MessageBase): Promise<void> {

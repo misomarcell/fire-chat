@@ -13,7 +13,7 @@ import {
 } from "@angular/fire/database";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
-import { Subject, switchMap, tap } from "rxjs";
+import { filter, Subject, switchMap, tap } from "rxjs";
 
 import { ChatRoom, CreateChatRoom } from "../models/ChatRoom.model";
 import { NewRoomFormComponent } from "./new-room-form/new-room-form.component";
@@ -34,7 +34,6 @@ export class RoomService {
 	) {
 		const chatRoomsQuery = query(this.chatsRef, limitToLast(25), orderByChild("timestamp"));
 		onChildAdded(chatRoomsQuery, (snapshot) => {
-			console.warn("Room changed", snapshot.val());
 			this.onRoomChange$.next(snapshot.val());
 		});
 	}
@@ -46,6 +45,7 @@ export class RoomService {
 			.afterClosed()
 			.pipe(
 				takeUntilDestroyed(this.destroyRef),
+				filter((chatRoom: CreateChatRoom) => !!chatRoom),
 				switchMap((chatRoom: CreateChatRoom) => this.crateNewRoom(chatRoom).then(() => chatRoom)),
 				tap((chatRoom: CreateChatRoom) => this.router.navigate(["/chat", chatRoom.id]))
 			)
