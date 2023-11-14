@@ -1,6 +1,9 @@
 {
 	"rules": {
 		".read": "now < 1702076400000",
-		".write": "now < 1702076400000"
+		".write": "now < 1702076400000",
+		"chats": {
+			".indexOn": "timestamp"
+		}
 	}
 }

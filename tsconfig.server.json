@@ -1,0 +1,9 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"module": "esnext",
+		"outDir": "lib",
+		"sourceMap": true
+	},
+	"exclude": ["test.ts", "**/*.spec.ts"]
+}

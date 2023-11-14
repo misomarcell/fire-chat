@@ -6,22 +6,20 @@
 		{
 			"source": "functions",
 			"codebase": "default",
-			"ignore": [
-				"node_modules",
-				".git",
-				"firebase-debug.log",
-				"firebase-debug.*.log"
-			],
-			"predeploy": [
-				"npm --prefix \"$RESOURCE_DIR\" run lint",
-				"npm --prefix \"$RESOURCE_DIR\" run build"
-			]
+			"ignore": ["node_modules", ".git", "firebase-debug.log", "firebase-debug.*.log"],
+			"predeploy": ["npm --prefix \"$RESOURCE_DIR\" run lint", "npm --prefix \"$RESOURCE_DIR\" run build"]
 		}
 	],
 	"hosting": [
 		{
 			"target": "fire-chat",
 			"source": ".",
+			"rewrites": [
+				{
+					"source": "**",
+					"function": "ssrmarcellfirechat"
+				}
+			],
 			"frameworksBackend": {
 				"region": "europe-west1",
 				"maxInstances": 1
